@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:hostelapplication/logic/modules/notice_model.dart';
 import 'package:hostelapplication/presentation/screen/student/studentDrawer.dart';
-import 'package:image_downloader/image_downloader.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -108,22 +107,7 @@ class NoticeContainer extends StatelessWidget {
     'Save Image',
   ];
 
-  void onSelect(item) async {
-    switch (item) {
-      case 'Save Image':
-        {
-          try {
-            var imageId = await ImageDownloader.downloadImage(src);
-            if (imageId == null) {
-              return print("Image download faild");
-            }
-          } on PlatformException catch (error) {
-            print(error);
-          }
-        }
-        break;
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -167,18 +151,6 @@ class NoticeContainer extends StatelessWidget {
                   ),
                 ],
               ),
-              src == ""
-                  ? SizedBox()
-                  : PopupMenuButton<String>(
-                      onSelected: onSelect,
-                      itemBuilder: (BuildContext context) {
-                        return myMenuItems.map((String choice) {
-                          return PopupMenuItem<String>(
-                            child: Text(choice),
-                            value: choice,
-                          );
-                        }).toList();
-                      })
             ],
           ),
           Divider(),
